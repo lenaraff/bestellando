@@ -21,10 +21,17 @@ let articles = [
 function init(){
     document.getElementById('menuArea').innerHTML = ``; //clear menuArea
     for (let i = 0; i < articles.length; i++){
-        document.getElementById('menuArea').innerHTML += `<div id="oneArticle">
-        <h2 id="nameOfArticle">${articles[i].name}</h2>
-        <p id="descriptionOfArticle">${articles[i].description}</p>
-        <h2 id="priceOfArticle">${articles[i].price}</h2>
+        document.getElementById('menuArea').innerHTML += `<div>
+        <h2>${articles[i].name}</h2>
+        <button onclick="addToShoppingBasket(${i})" class="small-btn"><img src="/img/plus.png" alt="plus"></button>
+        <p>${articles[i].description}</p>
+        <h2>${articles[i].price}</h2>
     </div>`
     };
+}
+function addToShoppingBasket(i){
+    document.getElementById('shoppingBasket').innerHTML += `<div>
+    <h2>${articles[i].name}</h2>
+    <h2>${articles[i].price}</h2>
+</div>`
 }
