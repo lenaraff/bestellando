@@ -192,3 +192,7 @@ function order() {
     showShoppingBasket();
     }
 }
+
+function openShoppingBasket(){
+    document.getElementById('shoppingBasket').classList.toggle("hiddenShoppingBasket");
+}
