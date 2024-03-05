@@ -79,9 +79,17 @@ a{
     height: 32px;
 }
 
-.small-icon img {
+
+
+
+.smallIcon img {
     width: 32px;
 }
+
+.middleIcon img{
+    width: 64px;
+}
+
 
 
 
@@ -99,9 +107,56 @@ a{
     width: 480px;
 }
 
+.pices {
+    display: flex;
+    align-items: center;
+}
+.pices img{
+    width: 16px;
+}
+
+.pices button{
+    border: none;
+    background-color: white;
+    height: 32px;
+}
+
 .itemsinShoppingBasket{
     display: flex;
     align-items: flex-start;
+}
+
+.oneItemInShoppingBasket{
+    display: flex;
+    align-items:flex-start;
+    justify-content: space-between;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #E9E8E9;
+    border-radius: 8px;
+    margin: 8px 0;
+    padding: 16px;
+
+}
+
+.shoppinBasketEmpty{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 24px;
+    text-align: center;
+}
+
+.line{
+    background-color: #E9E8E9;
+    height: 2px;
+
+}
+
+.total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 footer{
