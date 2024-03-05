@@ -24,7 +24,10 @@
     </header>
     <main>
         <div class="restaurantAndMenu">
-            <img class="restaurantIMG" src="img/pizza.jpg" alt="Pizza">
+            <div class="restaurantPhotoAndLogo">
+                <img class="restaurantIMG" src="img/pizza.jpg" alt="Pizza">
+                <img class="restaurantLogo" src="img/logo.jpg" alt="Logo">
+            </div>
             <div class="restaurantInformation paddingleft16">
                 <h1>Pizzaria La Lena</h1>
                 <div class="rating smallIcon">
@@ -40,27 +43,49 @@
             </div>
             <div class="categoryLine smallIcon paddingleft16">
                 <img src="img/lupe.png" alt="Lupe">
-                <a href="#">Pizza</a>
-                <a href="#">Pasta</a>
-                <a href="#">Salat</a>
+                <a href="#menuAreaPizza">Pizza</a>
+                <a href="#menuAreaPasta">Pasta</a>
+                <a href="#menuAreaSalad">Salat</a>
+            </div>
+            <div>
+
+                <img class="menuSlicer" src="img/pizza_slicer.jpg" alt="Pizza">
+                <h2>Pizza</h2>
+                <div id="menuAreaPizza"></div>
+            </div>
+            <div>
+
+                <img class="menuSlicer" src="img/pasta_slicer.jpg" alt="Pasta">
+                <h2>Pasta</h2>
+                <div id="menuAreaPasta"></div>
+            </div>
+            <div>
+
+                <img class="menuSlicer" src="img/salad_slicer.jpg" alt="Salat">
+                <h2>Salat</h2>
+                <div id="menuAreaSalad"></div>
             </div>
             <div id="menuArea">
+
             </div>
         </div>
         <div class="shoppingBasket paddingleft16 paddingright16 middleIcon" id="shoppingBasket">
-            <h2>Warenkorb</h2>
-            
-            <div class="line"></div>
-            <div id="itemsinShoppingBasket">
-            </div>
-            <div id="shoppinBasketEmpty" class="shoppinBasketEmpty">
-                <img src="img/einkaufswagen.png" alt="Einkaufswagen">
-                <p>Dein Warenkorb ist leer. <br><br> Füge Gerichte hinzu.</p>
-            </div>
-            <div class="line"></div>
-            <div class="total">
-                <h3>Summe</h3>
-                <b id="total">16,90 €</b>
+            <div class="sticky">
+                <h2>Warenkorb</h2>
+
+                <div class="line"></div>
+                <div id="itemsinShoppingBasket">
+                </div>
+                <div id="shoppinBasketEmpty" class="shoppinBasketEmpty">
+                    <img src="img/einkaufswagen.png" alt="Einkaufswagen">
+                    <p>Dein Warenkorb ist leer. <br><br> Füge Gerichte hinzu.</p>
+                </div>
+                <div class="line"></div>
+                <div class="total">
+                    <h3>Summe</h3>
+                    <b id="total">00,00 €</b>
+                </div>
+                <button onclick="order()">Bestellung senden</button>
             </div>
         </div>
     </main>

@@ -34,7 +34,25 @@ let articles = [
         'description': 'Römersalat, Parmesan,Croutons, Hähnchenbrust und cremiges Dressing mit Kapern und Sardellen',
         'price': 8.60,
         'category': 'salad',
-    }
+    },
+    {
+        'name': 'Thunfisch Salat',
+        'description': 'Salat mit Thunfisch',
+        'price': 13.00,
+        'category': 'salad',
+    },
+    {
+        'name': 'kleiner Beilagensalat',
+        'description': 'kleiner gemischter Beilagensalt',
+        'price': 3.10,
+        'category': 'salad',
+    },
+    {
+        'name': 'Spagetti Bolognese',
+        'description': 'Spagetti mit Bolognesesauce',
+        'price': 15.30,
+        'category': 'pasta',
+    },
 ];
 
 let shoppingBasketNames = [];
@@ -44,40 +62,78 @@ let shoppingBasketAmount = [];
 let total = 0;
 
 function init() {
-    document.getElementById('menuArea').innerHTML = ``; //clear menuArea
-    for (let i = 0; i < articles.length; i++) {
-        document.getElementById('menuArea').innerHTML += `<div class="mealCard">
+    document.getElementById('menuArea').innerHTML = ``;
+    for (let i = 0; i < articles.length; i++)
+        if (articles[i].category === 'pizza') {
+            document.getElementById('menuAreaPizza').innerHTML += `<div class="mealCard">
         <div>
             <h2>${articles[i].name}</h2>
             <p>${articles[i].description}</p>
             <h3>${articles[i].price.toFixed(2)}</h3>
         </div>
         <button onclick="storeInShoppingBasket(${i})" class="smallIcon"><img src="img/plus.png" alt="plus"></button>
-    </div>`
-    };
-}
-function showShoppingBasket() {
-    document.getElementById('shoppinBasketEmpty').style.display = "none"
-    document.getElementById('itemsinShoppingBasket').innerHTML = ``
-    for (let i = 0; i < shoppingBasketNames.length; i++) {
-        document.getElementById('itemsinShoppingBasket').innerHTML += `<div class="oneItemInShoppingBasket">
+    </div>`;
+        }
+        else if (articles[i].category === 'pasta') {
+            document.getElementById('menuAreaPasta').innerHTML += `<div class="mealCard">
         <div>
-    <h2>${shoppingBasketNames[i]}</h2>
-    <div class="pices smallIcon">
-    <button class="smallIcon"><img src="img/plus_rund.png" alt="Plus"></button>
-    <p>${shoppingBasketAmount[i]} Sück</p>
-    <button><img src="img/minus_rund.png" alt="Plus"></button>
-    </div>
-    </div>
-    <h3>${(shoppingBasketPrices[i]*shoppingBasketAmount[i]).toFixed(2)} €</h3>
-</div>`
-showTotal();
-    };
-function showTotal(){
-    document.getElementById('total').innerHTML = `${total.toFixed(2)} €`;
-}
+            <h2>${articles[i].name}</h2>
+            <p>${articles[i].description}</p>
+            <h3>${articles[i].price.toFixed(2)}</h3>
+        </div>
+        <button onclick="storeInShoppingBasket(${i})" class="smallIcon"><img src="img/plus.png" alt="plus"></button>
+    </div>`;
+        }
+        else if (articles[i].category === 'salad') {
+            document.getElementById('menuAreaSalad').innerHTML += `<div class="mealCard">
+        <div>
+            <h2>${articles[i].name}</h2>
+            <p>${articles[i].description}</p>
+            <h3>${articles[i].price.toFixed(2)}</h3>
+        </div>
+        <button onclick="storeInShoppingBasket(${i})" class="smallIcon"><img src="img/plus.png" alt="plus"></button>
+    </div>`;
+        };
 
 }
+
+
+function showShoppingBasket() {
+    loadItemsInShoppinBasket();
+    showTotal();
+    checkShoppingBaketLength();
+};
+
+function loadItemsInShoppinBasket() {
+    document.getElementById('itemsinShoppingBasket').innerHTML = ``;
+    for (let i = 0; i < shoppingBasketNames.length; i++) {
+        document.getElementById('itemsinShoppingBasket').innerHTML += `<div class="oneItemInShoppingBasket">
+            <div>
+            <p>${shoppingBasketNames[i]}</p>
+            <div class="pices smallIcon">
+            <button onclick= "addOne('${shoppingBasketNames[i]}')" class="smallIcon"><img src="img/plus_rund.png" alt="Plus"></button>
+            <p>${shoppingBasketAmount[i]} Sück</p>
+            <button onclick= "deleteOne('${shoppingBasketNames[i]}')"><img src="img/minus_rund.png" alt="Plus"></button>
+            </div>
+            </div>
+            <p>${(shoppingBasketPrices[i] * shoppingBasketAmount[i]).toFixed(2)} €</p>
+            </div>`
+    };
+};
+
+function showTotal() {
+    document.getElementById('total').innerHTML = `${total.toFixed(2)} €`;
+};
+
+function checkShoppingBaketLength() {
+    if (shoppingBasketNames.length >= 1) {
+        document.getElementById('shoppinBasketEmpty').style.display = "none";
+    }
+    else {
+        document.getElementById('shoppinBasketEmpty').style.display = "";
+    };
+};
+
 function storeInShoppingBasket(i) {
     if (shoppingBasketNames.includes(articles[i].name)) {
         positionOfMealinShoppingBasket = shoppingBasketNames.indexOf(articles[i].name)
@@ -87,15 +143,52 @@ function storeInShoppingBasket(i) {
         shoppingBasketNames.push(articles[i].name);
         shoppingBasketPrices.push(articles[i].price);
         shoppingBasketAmount.push(1);
-    }
+    };
     findTotal();
     showShoppingBasket();
-}
-function findTotal(){
+};
+
+function findTotal() {
     total = 0;
-    for(let i = 0; i < shoppingBasketNames.length; i++){
-        total = total + shoppingBasketPrices[i]*shoppingBasketAmount[i];
+    for (let i = 0; i < shoppingBasketNames.length; i++) {
+        total = total + shoppingBasketPrices[i] * shoppingBasketAmount[i];
+    };
+};
+
+function addOne(article) {
+    positionOfMealinShoppingBasket = shoppingBasketNames.indexOf(article);
+    shoppingBasketAmount[positionOfMealinShoppingBasket]++;
+    findTotal();
+    showShoppingBasket();
+};
+
+function deleteOne(article) {
+    positionOfMealinShoppingBasket = shoppingBasketNames.indexOf(article);
+    if (shoppingBasketAmount[positionOfMealinShoppingBasket] == 1) {
+        shoppingBasketNames.splice(positionOfMealinShoppingBasket, 1);
+        shoppingBasketPrices.splice(positionOfMealinShoppingBasket, 1);
+        shoppingBasketAmount.splice(positionOfMealinShoppingBasket, 1);
+        findTotal();
+        showShoppingBasket();
     }
+    else {
+        positionOfMealinShoppingBasket = shoppingBasketNames.indexOf(article)
+        shoppingBasketAmount[positionOfMealinShoppingBasket]--
+        findTotal();
+        showShoppingBasket();
+    };
+};
 
+function order() {
+    if(shoppingBasketNames.length == 0){
+        alert('Füge bitte Gerichte zum Warenkorb hinzu, bevor du deine Bestellung absendest!')
+    }
+    else{
+    alert('Deine Testbestellung wurde abgesendet!');
+    shoppingBasketNames = [];
+    shoppingBasketPrices = [];
+    shoppingBasketAmount = [];
+    findTotal();
+    showShoppingBasket();
+    }
 }
-
