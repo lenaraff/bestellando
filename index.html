@@ -6,15 +6,57 @@
     <title>Bestellando</title>
     <link rel="stylesheet" href="style.css">
     <script src="script.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+        rel="stylesheet">
 </head>
 
 <body onload="init()">
-    <div id = "menuArea">
-        
-    </div>
-    <div id="shoppingBasket">
-        <h2>Warenkorb</h2>
-    </div>
+    <header>
+        <div class="logoAndName">
+            <img class="logo paddingright16" src="img/gabel.png" alt="Gabel und Löffel">
+            Bestellando.at
+        </div>
+        <u>Musterstraße 123, Musterstadt</u>
+        <img class="menu" src="img/menu.png" alt="Menüstriche">
+    </header>
+    <main>
+        <div class="restaurantAndMenu">
+            <img class="restaurantIMG" src="img/pizza.jpg" alt="Pizza">
+            <div class="restaurantInformation paddingleft16">
+                <h1>Pizzaria La Lena</h1>
+                <div class="rating small-icon">
+                    <div class="paddingright16">
+                        <img src="img/star.png" alt="Stern">
+                        <img src="img/star.png" alt="Stern">
+                        <img src="img/star.png" alt="Stern">
+                        <img src="img/star.png" alt="Stern">
+                        <img src="img/star.png" alt="Stern">
+                    </div>
+                    <p>(222 Bewertungen)</p>
+                </div>
+            </div>
+            <div class="categoryLine small-icon paddingleft16">
+                <img src="img/lupe.png" alt="Lupe">
+                <a href="#">Pizza</a>
+                <a href="#">Pasta</a>
+                <a href="#">Salat</a>
+            </div>
+            <div id="menuArea">
+            </div>
+        </div>
+        <div class="shoppingBasket paddingleft16" id="shoppingBasket">
+            <h2>Warenkorb</h2>
+            <div id="itemsinShoppingBasket"></div>
+        </div>
+    </main>
+    <footer>
+        <a href="#">Über diese Seite</a> <!--muss noch erstellt werden-->
+        <a href="#">Impressum</a> <!--muss noch erstellt werden-->
+        <a href="#">Datenschutz</a> <!--muss noch erstellt werden-->
+    </footer>
 </body>
 
 </html>
