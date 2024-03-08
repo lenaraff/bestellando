@@ -2,6 +2,7 @@ body {
     display: flex;
     flex-direction: column;
     font-family: "Roboto", sans-serif;
+    margin: 0;
 }
 
 header {
@@ -38,12 +39,9 @@ button {
 
 main {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-evenly;
 }
 
-.restaurantAndMenu{
-    width: 1000px;
-}
 
 .restaurantIMG {
     width: 100%;
@@ -87,7 +85,7 @@ a {
 }
 
 .menuSlicer {
-    height: 40px;
+    height: 80px;
     object-fit: cover;
     width: 100%;
     border-radius: 8px;
@@ -210,6 +208,10 @@ footer {
     font-size: larger;
 }
 
+.hiddenShoppingBasket {
+    display: none;
+}
+
 @media (max-width: 800px) {
     .hiddenShoppingBasket {
         display: none;
@@ -217,23 +219,26 @@ footer {
 
     .shoppingBaketRight {
         position: absolute;
+        right: 0;
         background-color: white;
     }
 
     .sticky {
         position: none;
     }
+
 }
 
-@media(max-width:600px) {}
+@media (max-width:600px) {
 
-header p {
-    display: none;
-}
-
-@media(min-width:1600px){
-    main {
-        display: flex;
-        justify-content: space-evenly;
+    header p {
+        display: none;
     }
+}
+
+@media (max-width:450px) {
+    html {
+        zoom: 0.75
+    }
+
 }

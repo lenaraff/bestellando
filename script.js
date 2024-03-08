@@ -62,46 +62,63 @@ let shoppingBasketAmount = [];
 let total = 0;
 
 function init() {
+    loadItemsFromLocalStorage();
+    showShoppingBasket();
     document.getElementById('menuArea').innerHTML = ``;
     for (let i = 0; i < articles.length; i++)
         if (articles[i].category === 'pizza') {
-            document.getElementById('menuAreaPizza').innerHTML += `<div class="mealCard">
-        <div>
-            <h2>${articles[i].name}</h2>
-            <p>${articles[i].description}</p>
-            <h3>${articles[i].price.toFixed(2)}</h3>
-        </div>
-        <button onclick="storeInShoppingBasket(${i})" class="smallIcon"><img src="img/plus.png" alt="plus"></button>
-    </div>`;
+            showPizzaArea(i);
         }
         else if (articles[i].category === 'pasta') {
-            document.getElementById('menuAreaPasta').innerHTML += `<div class="mealCard">
-        <div>
-            <h2>${articles[i].name}</h2>
-            <p>${articles[i].description}</p>
-            <h3>${articles[i].price.toFixed(2)}</h3>
-        </div>
-        <button onclick="storeInShoppingBasket(${i})" class="smallIcon"><img src="img/plus.png" alt="plus"></button>
-    </div>`;
+            showPastaArea(i)
         }
         else if (articles[i].category === 'salad') {
-            document.getElementById('menuAreaSalad').innerHTML += `<div class="mealCard">
-        <div>
-            <h2>${articles[i].name}</h2>
-            <p>${articles[i].description}</p>
-            <h3>${articles[i].price.toFixed(2)}</h3>
-        </div>
-        <button onclick="storeInShoppingBasket(${i})" class="smallIcon"><img src="img/plus.png" alt="plus"></button>
-    </div>`;
+            showSaladArea(i)
         };
 
 }
 
+function showPizzaArea(i) {
+    document.getElementById('menuAreaPizza').innerHTML +=
+        `<div class="mealCard">
+            <div>
+                <h2>${articles[i].name}</h2>
+                <p>${articles[i].description}</p>
+                <h3>${articles[i].price.toFixed(2)}</h3>
+            </div>
+            <button onclick="storeInShoppingBasket(${i})" class="smallIcon"><img src="img/plus.png" alt="plus"></button>
+        </div>`;
+}
+
+function showPastaArea(i) {
+    document.getElementById('menuAreaPasta').innerHTML +=
+        `<div class="mealCard">
+            <div>
+                <h2>${articles[i].name}</h2>
+                <p>${articles[i].description}</p>
+                <h3>${articles[i].price.toFixed(2)}</h3>
+            </div>
+            <button onclick="storeInShoppingBasket(${i})" class="smallIcon"><img src="img/plus.png" alt="plus"></button>
+        </div>`;
+}
+
+function showSaladArea(i) {
+    document.getElementById('menuAreaSalad').innerHTML +=
+        `<div class="mealCard">
+            <div>
+                <h2>${articles[i].name}</h2>
+                <p>${articles[i].description}</p>
+                <h3>${articles[i].price.toFixed(2)}</h3>
+            </div>
+            <button onclick="storeInShoppingBasket(${i})" class="smallIcon"><img src="img/plus.png" alt="plus"></button>
+        </div>`;
+}
 
 function showShoppingBasket() {
     loadItemsInShoppinBasket();
     showTotal();
     checkShoppingBaketLength();
+    storeItemsInLocalStorage()
 };
 
 function loadItemsInShoppinBasket() {
@@ -114,6 +131,7 @@ function loadItemsInShoppinBasket() {
             <button onclick= "addOne('${shoppingBasketNames[i]}')" class="smallIcon"><img src="img/plus_rund.png" alt="Plus"></button>
             <p>${shoppingBasketAmount[i]} Sück</p>
             <button onclick= "deleteOne('${shoppingBasketNames[i]}')"><img src="img/minus_rund.png" alt="Plus"></button>
+            <button onclick= "deleteAll('${shoppingBasketNames[i]}')"><img src="img/trash.png" alt="Plus"></button>
             </div>
             </div>
             <p>${(shoppingBasketPrices[i] * shoppingBasketAmount[i]).toFixed(2)} €</p>
@@ -179,20 +197,45 @@ function deleteOne(article) {
     };
 };
 
-function order() {
-    if(shoppingBasketNames.length == 0){
-        alert('Füge bitte Gerichte zum Warenkorb hinzu, bevor du deine Bestellung absendest!')
-    }
-    else{
-    alert('Deine Testbestellung wurde abgesendet!');
-    shoppingBasketNames = [];
-    shoppingBasketPrices = [];
-    shoppingBasketAmount = [];
+function deleteAll(article) {
+    positionOfMealinShoppingBasket = shoppingBasketNames.indexOf(article);
+    shoppingBasketNames.splice(positionOfMealinShoppingBasket, 1);
+    shoppingBasketPrices.splice(positionOfMealinShoppingBasket, 1);
+    shoppingBasketAmount.splice(positionOfMealinShoppingBasket, 1);
     findTotal();
     showShoppingBasket();
+
+};
+
+function order() {
+    if (shoppingBasketNames.length == 0) {
+        alert('Füge bitte Gerichte zum Warenkorb hinzu, bevor du deine Bestellung absendest!')
+    }
+    else {
+        alert('Deine Testbestellung wurde abgesendet!');
+        shoppingBasketNames = [];
+        shoppingBasketPrices = [];
+        shoppingBasketAmount = [];
+        findTotal();
+        showShoppingBasket();
     }
 }
 
-function openShoppingBasket(){
+function openShoppingBasket() {
     document.getElementById('shoppingBasket').classList.toggle("hiddenShoppingBasket");
+}
+
+function storeItemsInLocalStorage() {
+    localStorage.setItem("articlesNames", JSON.stringify(shoppingBasketNames));
+    localStorage.setItem("articlesPrices", JSON.stringify(shoppingBasketPrices));
+    localStorage.setItem("articlesAmounts", JSON.stringify(shoppingBasketAmount));
+}
+
+function loadItemsFromLocalStorage() {
+    StringOfshoppingBasketNames = localStorage.getItem("articlesNames");
+    StringOfshoppingBasketPrices = localStorage.getItem("articlesPrices");
+    StringOfhoppingBasketAmount = localStorage.getItem("articlesAmounts");
+    shoppingBasketNames = JSON.parse(StringOfshoppingBasketNames);
+    shoppingBasketPrices = JSON.parse(StringOfshoppingBasketPrices);
+    shoppingBasketAmount = JSON.parse(StringOfhoppingBasketAmount);
 }
